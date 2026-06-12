@@ -16,7 +16,6 @@
 	import FeedbackPanel from '$lib/components/FeedbackPanel.svelte';
 
 	const TIMER_SECONDS = 20;
-	const TIME_BONUS_THRESHOLD = 10; // seconds remaining to earn bonus
 
 	let loading = true;
 	let error = '';
@@ -34,9 +33,13 @@
 		if (!$token) { goto('/login'); return; }
 		try {
 			const session = await quizApi.createSession('go', level, $token);
-			quiz.startSession(session);
+			if (!session?.questions?.length) {
+				error = 'Nenhuma questão disponível para este nível.';
+			} else {
+				quiz.startSession(session);
+			}
 		} catch (e: any) {
-			error = e.message ?? 'Falha ao carregar quiz';
+			error = e.message ?? 'Falha ao carregar quiz. Tente novamente.';
 		} finally {
 			loading = false;
 		}
@@ -111,9 +114,10 @@
 		}
 	}
 
-	async function handleNext() {
-		if ($quiz.finished) {
-			await quizApi.getResult($quiz.session!.id, $token!);
+	function handleNext() {
+		// On the last question, go straight to results. The results page fetches
+		// the session and finalizes it (sets finished_at, upserts the score).
+		if (isLast) {
 			goto(`/results/${$quiz.session!.id}`);
 			return;
 		}
@@ -213,5 +217,13 @@
 			{/if}
 		{/key}
 
+	</div>
+
+<!-- ─── Fallback (no active question, e.g. session lost) ──── -->
+{:else}
+	<div class="text-center py-20">
+		<p class="text-4xl mb-4">🤔</p>
+		<p class="text-zinc-500 mb-6 text-sm">Esta sessão não está mais ativa.</p>
+		<a href="/" class="text-emerald-400 underline text-sm">Voltar ao início</a>
 	</div>
 {/if}

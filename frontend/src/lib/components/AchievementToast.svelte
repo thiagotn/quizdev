@@ -47,7 +47,7 @@
 			in:scale={{ duration: 500, easing: elasticOut, start: 0.7 }}
 			out:fly={{ y: 30, duration: 250, easing: cubicOut }}
 			class="w-full max-w-sm bg-zinc-900 border border-zinc-700 rounded-2xl p-6 text-center shadow-2xl"
-			onclick|stopPropagation={() => {}}
+			onclick={(e) => e.stopPropagation()}
 			role="dialog"
 		>
 			<!-- Burst icon -->
