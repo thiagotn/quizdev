@@ -1,0 +1,29 @@
+/* GoRound — app.css */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Inter:wght@400;500;700;900&display=swap');
+
+:root {
+  /* ── GoRound design tokens ── */
+  --arena-red:    #E63946;
+  --void-black:   #111111;
+  --surface:      #1A1A1A;
+  --frost-white:  #F1FAEE;
+  --go-blue:      #00ACD7;
+  --code-green:   #4ADE80;
+  --streak-amber: #F59E0B;
+
+  font-family: 'Inter', system-ui, sans-serif;
+}
+
+code, pre, .font-mono {
+  font-family: 'JetBrains Mono', 'Fira Code', monospace;
+}
+
+* { -webkit-tap-highlight-color: transparent; }
+
+::-webkit-scrollbar { width: 4px; height: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #3f3f46; border-radius: 99px; }
