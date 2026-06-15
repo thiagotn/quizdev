@@ -48,11 +48,11 @@
 
 	<!-- Tabs -->
 	<div in:fly={{ y: 12, duration: 280, delay: 60, easing: cubicOut }}
-		class="flex gap-1.5 mb-6 bg-zinc-900 border border-zinc-800 rounded-xl p-1 overflow-x-auto">
+		class="grid grid-cols-2 gap-1.5 mb-6 bg-zinc-900 border border-zinc-800 rounded-xl p-1 sm:grid-cols-4">
 		{#each tabs as tab}
 			<button
 				onclick={() => loadTab(tab.id)}
-				class="flex items-center gap-1.5 px-3 py-2 rounded-lg text-xs font-medium whitespace-nowrap transition-all
+				class="flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg text-xs font-medium whitespace-nowrap transition-all
 					{activeTab === tab.id
 						? 'bg-zinc-700 text-zinc-100'
 						: 'text-zinc-500 hover:text-zinc-300'}"
@@ -102,7 +102,7 @@
 							{#if entry.is_current_user}<span class="text-zinc-600 font-normal"> (você)</span>{/if}
 						</p>
 						<p class="text-xs text-zinc-600 tabular-nums">
-							{entry.sessions_played} sessão{entry.sessions_played !== 1 ? 'ões' : ''}
+							{entry.sessions_played} {entry.sessions_played === 1 ? 'sessão' : 'sessões'}
 							· streak {entry.best_streak}🔥
 						</p>
 					</div>
